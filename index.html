@@ -5,30 +5,37 @@
   <style>
     body {
       font-family: sans-serif;
+      background: #000;
+      color: #fff;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      color: #444;
-      background: white;
     }
     .circle-row {
       display: flex;
-      gap: 8px;
-      margin-bottom: 10px;
+      gap: 10px;
+      margin-bottom: 12px;
     }
     .circle {
-      width: 16px;
-      height: 16px;
+      width: 18px;
+      height: 18px;
       border-radius: 50%;
-      border: 1px solid #ccc;
+      border: 2px solid #fff;
+      background-color: #fff;
     }
-    .filled {
-      background-color: #444;
+    .past {
+      background-color: #fff;
+    }
+    .current {
+      background-color: #888;
+    }
+    .future {
+      background-color: #000;
     }
     .percent {
       font-size: 14px;
-      color: #666;
+      color: #fff;
     }
   </style>
 </head>
@@ -50,7 +57,13 @@
     const container = document.getElementById("months");
     for (let i = 0; i < 12; i++) {
       const div = document.createElement("div");
-      div.className = "circle" + (i <= month ? " filled" : "");
+      if (i < month) {
+        div.className = "circle past";
+      } else if (i === month) {
+        div.className = "circle current";
+      } else {
+        div.className = "circle future";
+      }
       container.appendChild(div);
     }
 
