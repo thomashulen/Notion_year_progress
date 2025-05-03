@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #1e1e1e;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      max-width: 90vw;
+    }
+    .circle-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      justify-content: center;
+    }
+    .circle {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      border: 1px solid #fff;
+    }
+    .past {
+      background-color: #fff;
+    }
+    .current {
+      background-color: #888;
+    }
+    .future {
+      background-color: #1e1e1e;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="circle-grid" id="days"></div>
+
+  <script>
+    const today = new Date();
+    const yearStart = new Date(today.getFullYear(), 0, 1);
+    const yearEnd = new Date(today.getFullYear() + 1, 0, 1);
+    const totalDays = Math.floor((yearEnd - yearStart) / (1000 * 60 * 60 * 24));
+    const currentDay = Math.floor((today - yearStart) / (1000 * 60 * 60 * 24));
+
+    const container = document.getElementById("days");
+
+    for (let i = 0; i < totalDays; i++) {
+      const div = document.createElement("div");
+      div.classList.add("circle");
+      if (i < currentDay) {
+        div.classList.add("past");
+      } else if (i === currentDay) {
+        div.classList.add("current");
+      } else {
+        div.classList.add("future");
+      }
+      container.appendChild(div);
+    }
+  </script>
+
+</body>
+</html>
