@@ -5,7 +5,7 @@
   <style>
     body {
       font-family: sans-serif;
-      background: #191919;
+      background: #1e1e1e;
       color: #fff;
       display: flex;
       flex-direction: column;
@@ -23,7 +23,6 @@
       height: 18px;
       border-radius: 50%;
       border: 2px solid #fff;
-      background-color: #fff;
     }
     .past {
       background-color: #fff;
@@ -34,9 +33,13 @@
     .future {
       background-color: #1e1e1e;
     }
-    .percent {
+    .percent, .week {
+      font-family: monospace;
       font-size: 14px;
       color: #fff;
+      margin-top: 4px;
+      white-space: pre;
+      text-align: center;
     }
   </style>
 </head>
@@ -44,6 +47,7 @@
 
   <div class="circle-row" id="months"></div>
   <div class="percent" id="percent"></div>
+  <div class="week" id="week"></div>
 
   <script>
     const today = new Date();
@@ -69,7 +73,22 @@
     }
 
     document.getElementById("percent").textContent = `${daysPassed} / ${totalDays} days → ${percent}% of the year`;
+
+    function getWeekNumber(d) {
+      const date = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+      const dayNum = date.getUTCDay() || 7;
+      date.setUTCDate(date.getUTCDate() + 4 - dayNum);
+      const yearStart = new Date(Date.UTC(date.getUTCFullYear(), 0, 1));
+      const weekNum = Math.ceil((((date - yearStart) / 86400000) + 1) / 7);
+      return weekNum;
+    }
+
+    const weekNumber = getWeekNumber(today);
+    document.getElementById("week").textContent = `It is Week ${weekNumber}`;
   </script>
+
+</body>
+</html>
 
 </body>
 </html>
