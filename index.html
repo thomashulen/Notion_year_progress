@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body {
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #444;
+      background: white;
+    }
+    .circle-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .circle {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 1px solid #ccc;
+    }
+    .filled {
+      background-color: #444;
+    }
+    .percent {
+      font-size: 14px;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="circle-row" id="months"></div>
+  <div class="percent" id="percent"></div>
+
+  <script>
+    const today = new Date();
+    const yearStart = new Date(today.getFullYear(), 0, 1);
+    const yearEnd = new Date(today.getFullYear() + 1, 0, 1);
+    const daysPassed = Math.floor((today - yearStart) / (1000 * 60 * 60 * 24));
+    const totalDays = Math.floor((yearEnd - yearStart) / (1000 * 60 * 60 * 24));
+    const percent = (daysPassed / totalDays * 100).toFixed(1);
+
+    const month = today.getMonth(); // 0-indexed
+
+    const container = document.getElementById("months");
+    for (let i = 0; i < 12; i++) {
+      const div = document.createElement("div");
+      div.className = "circle" + (i <= month ? " filled" : "");
+      container.appendChild(div);
+    }
+
+    document.getElementById("percent").textContent = `${daysPassed} / ${totalDays} days → ${percent}% of the year`;
+  </script>
+
+</body>
+</html>
